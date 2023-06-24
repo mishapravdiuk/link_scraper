@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Parser</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Website Parser</h1>
+        
+        <!-- Форма вводу посилання -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Enter a URL</h5>
+                <form method="POST" action="/">
+                   {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="URL" id="site_url" name="site_url">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Таблиця для відображення даних -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Link Name</th>
+                    <th scope="col">URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Здесь будуть динамічно додаватись рядки таблиці -->
+                {% for link in data %}
+                <tr>
+                    <td>{{link.id}}</td>
+                    <td>{{link.name}}</td>
+                    <td>{{link.address}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Кнопка очищення таблиці -->
+        <a class="btn btn-danger mb-4" href="{% url 'delete' %}">Clear Table</a>
+    </div>
+</body>
+</html>
